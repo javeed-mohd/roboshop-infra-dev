@@ -7,9 +7,9 @@ variable "environment" {
   default   = "dev"
 }
 
-variable "sg_names" {
+/* variable "sg_names" {
   type      = list
   default   = [
-    
+
   ]
-}
+} */
