@@ -6,3 +6,10 @@ variable "project" {
 variable "environment" {
   default   = "dev"
 }
+
+variable "sg_names" {
+  type      = list
+  default   = [
+    
+  ]
+}
