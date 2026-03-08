@@ -7,6 +7,7 @@ variable "environment" {
   default   = "dev"
 }
 
+# Security group names list
 variable "sg_names" {
   type      = list
   default   = [
