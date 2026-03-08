@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "mongodb_bastion" {
   to_port                  = 22
   protocol                 = "tcp"
 #   Where traffic is coming from?
-  source_security_group_id = local.bastion_sg_id
+  source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.mongodb_sg_id # Destination
 }
 
