@@ -4,15 +4,15 @@ bastion:
   src: internet
   dest: bastion
 mongodb:
-- name: mongodb_bastion # MongoDB accepting connections from Bastion
+- name: mongodb_bastion # 2.MongoDB accepting connections from Bastion
   port: 27017
   src: bastion
   dest: mongodb
-- name: mongodb_catalogue # 1. MongoDB accepting connections from Catalogue
+- name: mongodb_catalogue # 1.MongoDB accepting connections from Catalogue
   port: 27017
   src: catalogue
   dest: mongodb
-- name: mongodb_user # MongoDB accepting connections from User
+- name: mongodb_user # 3.MongoDB accepting connections from User
   port: 27017
   src: user
   dest: mongodb
