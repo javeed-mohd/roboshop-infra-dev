@@ -13,7 +13,7 @@ resource "aws_instance" "mongodb" {
   )
 }
 
-# Terraform data -> Follows standard resource lifecycle(Create,Update & Delete) but won't create any resources.
+# Terraform data/null resource -> Follows standard resource lifecycle(Create,Update & Delete) but won't create any resources.
 resource "terraform_data" "mongodb" {
   triggers_replace = [
     aws_instance.mongodb.id
