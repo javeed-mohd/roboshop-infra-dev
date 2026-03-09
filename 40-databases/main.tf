@@ -3,7 +3,6 @@ resource "aws_instance" "bastion" {
   instance_type             = "t3.micro"
   subnet_id                 = local.public_subnet_id
   vpc_security_group_ids    = [local.bastion_sg_id]    # List type
-  iam_instance_profile = aws_iam_instance_profile.bastion.name # Last
 
   # roboshop-dev-bastion
   tags = merge(

@@ -6,7 +6,7 @@ resource "aws_security_group_rule" "bastion_internet" {
   #   cidr_blocks              = ["0.0.0.0/0"]
   cidr_blocks              = [local.my_ip]
   #   For which security group you are creating this rule.
-  security_group_id        = local.bastion_sg_id # Destination
+  security_group_id        = local.bastion_sg_id 
 }
 
 resource "aws_security_group_rule" "mongodb_bastion" {
@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "mongodb_bastion" {
   protocol                 = "tcp"
 #   Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
-  security_group_id        = local.mongodb_sg_id # Destination
+  security_group_id        = local.mongodb_sg_id 
 }
 
 resource "aws_security_group_rule" "mongodb_catalogue" {
@@ -26,7 +26,7 @@ resource "aws_security_group_rule" "mongodb_catalogue" {
   protocol                 = "tcp"
 #   Where traffic is coming from?
   source_security_group_id = local.catalogue_sg_id
-  security_group_id        = local.mongodb_sg_id # Destination
+  security_group_id        = local.mongodb_sg_id 
 }
 
 resource "aws_security_group_rule" "mongodb_user" {
@@ -36,5 +36,5 @@ resource "aws_security_group_rule" "mongodb_user" {
   protocol                 = "tcp"
 #   Where traffic is coming from?
   source_security_group_id = local.user_sg_id
-  security_group_id        = local.mongodb_sg_id # Destination
+  security_group_id        = local.mongodb_sg_id
 }
