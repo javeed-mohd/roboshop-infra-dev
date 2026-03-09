@@ -52,4 +52,4 @@ resource "aws_iam_instance_profile" "bastion" {
   role = aws_iam_role.bastion.name
 }
 
-# mongodb-dev.devopsdaws.online
+# mongodb-dev.devopsdaws.online (Route53 records)
