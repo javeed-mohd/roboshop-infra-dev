@@ -149,7 +149,6 @@ resource "aws_instance" "rabbitmq" {
   instance_type             = "t3.micro"
   subnet_id                 = local.database_subnet_id
   vpc_security_group_ids    = [local.rabbitmq_sg_id]    # List type
-  # iam_instance_profile      = aws_iam_instance_profile.rabbitmq.name # After creating IAM Instance Profile
 
   # roboshop-dev-rabbitmq
   tags = merge(
