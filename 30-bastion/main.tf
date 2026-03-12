@@ -3,7 +3,8 @@ resource "aws_instance" "bastion" {
   instance_type             = "t3.micro"
   subnet_id                 = local.public_subnet_id
   vpc_security_group_ids    = [local.bastion_sg_id]    # List type
-  iam_instance_profile = aws_iam_instance_profile.bastion.name # Last
+  iam_instance_profile      = aws_iam_instance_profile.bastion.name # Last
+  user_data                 = file("bastion.sh")
 
   # Extending the storage
   root_block_device {
