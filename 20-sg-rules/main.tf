@@ -3,8 +3,8 @@ resource "aws_security_group_rule" "bastion_internet" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-  # cidr_blocks              = ["0.0.0.0/0"]
-  cidr_blocks              = [local.my_ip] # Public_ip keeps changing with mobile hotspot 
+  cidr_blocks              = ["0.0.0.0/0"]
+  # cidr_blocks              = [local.my_ip] # Public_ip keeps changing with mobile hotspot 
   #   For which security group you are creating this rule.
   security_group_id        = local.bastion_sg_id 
 }
