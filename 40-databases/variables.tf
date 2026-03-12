@@ -7,3 +7,11 @@ variable "project" {
 variable "environment" {
   default   = "dev"
 }
+
+variable "zone_id" {
+  default   = "Z0883755364LI3FEBC65Q"
+}
+
+variable "domain_name" {
+  default   = "devopsdaws.online"
+}
