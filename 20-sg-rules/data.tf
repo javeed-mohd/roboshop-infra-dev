@@ -15,14 +15,19 @@ data "aws_ssm_parameter" "mongodb_sg_id" {
     name = "/${var.project}/${var.environment}/mongodb_sg_id" # /roboshop/dev/mongodb_sg_id
 }
 
-# For redis creation in 40-databases
+# For redis creation in 40-databases folder
 data "aws_ssm_parameter" "redis_sg_id" {
     name = "/${var.project}/${var.environment}/redis_sg_id" # /roboshop/dev/redis_sg_id
 }
 
-# For mysql creation in 40-databases
+# For mysql creation in 40-databases folder
 data "aws_ssm_parameter" "mysql_sg_id" {
     name = "/${var.project}/${var.environment}/mysql_sg_id" # /roboshop/dev/mysql_sg_id
+}
+
+# For rabbitmq creation in 40-databases folder
+data "aws_ssm_parameter" "rabbitmq_sg_id" {
+    name = "/${var.project}/${var.environment}/rabbitmq_sg_id" # /roboshop/dev/rabbitmq_sg_id
 }
 
 data "aws_ssm_parameter" "catalogue_sg_id" {
