@@ -36,6 +36,7 @@ resource "terraform_data" "mongodb" {
 
   # LOCAL EXECUTION  ==> local-exec -> where terraform executes
   # REMOTE EXECUTION ==> remote-exec -> executes inside the resources created by terraform
+  # Using Inline command, we can give multiple commands
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/bootstrap.sh",
