@@ -25,3 +25,24 @@ resource "aws_iam_role" "mysql" {
     local.common_tags
   )
 }
+
+# Creating the IAM Role Policy
+resource "aws_iam_policy" "mysql" {
+  name        = local.mysql_policy_name
+  description = "A policy for MySQL EC2 Instance"
+  policy      = templatefile("mysql-iam-policy.json", {
+                environment = var.environment
+  })
+}
+
+# Attaching the IAM Role Policy
+resource "aws_iam_role_policy_attachment" "mysql" {
+  role        = aws_iam_role.mysql.name
+  policy_arn  = aws_iam_policy.mysql.arn
+}
+
+# Creating the IAM Instance Profile
+resource "aws_iam_role_policy_attachment" "mysql" {
+  role       = aws_iam_role.mysql.name
+  policy_arn = aws_iam_policy.mysql.arn
+}
