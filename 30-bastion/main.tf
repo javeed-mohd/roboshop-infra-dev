@@ -5,6 +5,19 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids    = [local.bastion_sg_id]    # List type
   iam_instance_profile = aws_iam_instance_profile.bastion.name # Last
 
+  # Extending the storage
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3"
+    # Elastic Block Store(EBS) volume tags
+    tags = merge(
+      {
+          Name = "${var.project}-${var.environment}-bastion"
+      },
+      local.common_tags
+    )
+  }
+
   # roboshop-dev-bastion
   tags = merge(
     {
