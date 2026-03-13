@@ -76,7 +76,7 @@ resource "aws_security_group_rule" "rabbitmq_bastion" {
 # For Backend ALB(Application LoadBalancer) Security Group Rule creation in 50-backend-alb folder
 resource "aws_security_group_rule" "backend_alb_bastion" {
   type                     = "ingress"
-  from_port                = 80 # HTTP (Private LoadBalancer)
+  from_port                = 80 # HTTP (Private LoadBalancer), Because AWS won't give access to SSH 22
   to_port                  = 80
   protocol                 = "tcp"
 #   Where traffic is coming from?
