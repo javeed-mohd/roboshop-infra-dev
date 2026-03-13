@@ -31,10 +31,6 @@ data "aws_ssm_parameter" "rabbitmq_sg_id" {
     name = "/${var.project}/${var.environment}/rabbitmq_sg_id" # /roboshop/dev/rabbitmq_sg_id
 }
 
-data "aws_ssm_parameter" "catalogue_sg_id" {
-    name = "/${var.project}/${var.environment}/catalogue_sg_id" # /roboshop/dev/catalogue_sg_id
-}
-
 data "aws_ssm_parameter" "user_sg_id" {
     name = "/${var.project}/${var.environment}/user_sg_id" # /roboshop/dev/user_sg_id
 }
@@ -42,4 +38,9 @@ data "aws_ssm_parameter" "user_sg_id" {
 # For Backend ALB ssm parameter store in 50-backend-alb folder
 data "aws_ssm_parameter" "backend_alb_sg_id" {
     name = "/${var.project}/${var.environment}/backend_alb_sg_id" # /roboshop/dev/backend_alb_sg_id
+}
+
+# For Catalogue ssm parameter store in 50-backend-alb folder
+data "aws_ssm_parameter" "catalogue_sg_id" {
+    name = "/${var.project}/${var.environment}/catalogue_sg_id" # /roboshop/dev/catalogue_sg_id
 }
