@@ -1,10 +1,11 @@
 locals {
-    my_ip           = "${chomp(data.http.my_public_ip_v4.response_body)}/32"
-    bastion_sg_id   = data.aws_ssm_parameter.bastion_sg_id.value
-    mongodb_sg_id   = data.aws_ssm_parameter.mongodb_sg_id.value
-    redis_sg_id     = data.aws_ssm_parameter.redis_sg_id.value # For redis creation in 40-databases folder
-    mysql_sg_id     = data.aws_ssm_parameter.mysql_sg_id.value # For mysql creation in 40-databases folder
-    rabbitmq_sg_id  = data.aws_ssm_parameter.rabbitmq_sg_id.value # For rabbitmq creation in 40-databases folder
-    catalogue_sg_id = data.aws_ssm_parameter.catalogue_sg_id.value
-    user_sg_id      = data.aws_ssm_parameter.user_sg_id.value
+    my_ip               = "${chomp(data.http.my_public_ip_v4.response_body)}/32"
+    bastion_sg_id       = data.aws_ssm_parameter.bastion_sg_id.value
+    mongodb_sg_id       = data.aws_ssm_parameter.mongodb_sg_id.value
+    redis_sg_id         = data.aws_ssm_parameter.redis_sg_id.value # For redis ssm parameter store creation in 40-databases folder
+    mysql_sg_id         = data.aws_ssm_parameter.mysql_sg_id.value # For mysql ssm parameter store creation in 40-databases folder
+    rabbitmq_sg_id      = data.aws_ssm_parameter.rabbitmq_sg_id.value # For rabbitmq ssm parameter store creation in 40-databases folder
+    catalogue_sg_id     = data.aws_ssm_parameter.catalogue_sg_id.value
+    user_sg_id          = data.aws_ssm_parameter.user_sg_id.value
+    backend_alb_sg_id   = data.aws_ssm_parameter.backend_alb_sg_id.value # For backend alb ssm parameter store creation in 50-backend-alb folder
 }
