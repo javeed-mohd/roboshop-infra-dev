@@ -43,7 +43,7 @@ resource "aws_route53_record" "www" {
 
   # Load Balancer details
   alias {
-    name                   = aws_lb.backend_alb.dns_name # dualstack
+    name                   = aws_lb.backend_alb.dns_name # dualstack.backend-alb-dev.us-east-1.elb.amazonaws.com
     zone_id                = aws_lb.backend_alb.zone_id
     evaluate_target_health = true
   }
