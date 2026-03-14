@@ -65,3 +65,101 @@ resource "aws_ami_from_instance" "catalogue" {
     local.common_tags
   )
 }
+
+# For Creation of Target Group
+resource "aws_lb_target_group" "catalogue" {
+  name                  = "${var.project}-${var.environment}-catalogue"
+  port                  = 8080 
+  protocol              = "HTTP"
+  vpc_id                = local.vpc_id
+  deregistration_delay  = 60 # Time required for instance termination is 60 seconds
+
+  health_check {
+    healthy_threshold   = 2 # Consecutive successes needed to be healthy
+    interval            = 10 # Time between health checks (seconds)
+    matcher             = "200-299" # HTTP codes for a successful response
+    path                = "/health" # The destination path for health checks
+    port                = 8080 # Use the port the target receives traffic on
+    protocol            = "HTTP" # Protocol for health checks
+    timeout             = 2 # Amount of time no response means failure (seconds)
+    unhealthy_threshold = 3 # Consecutive failures needed to be unhealthy
+    enabled             = true # By default it is true for health checks enabling
+  }
+}
+
+# For Creation of Launch Template
+resource "aws_launch_template" "catalogue" {
+  name          = "${var.project}-${var.environment}-catalogue"
+  image_id      = aws_ami_from_instance.catalogue.id
+
+  # Once Autoscaling see less traffic, it will automatically terminates the instance(We can also keep stop for some instances)
+  instance_initiated_shutdown_behavior = "terminate"
+  instance_type           = "t3.micro"
+  vpc_security_group_ids  = [local.catalogue_sg_id]
+
+  # Each time we apply terraform, this version will be updated as default
+  update_default_version = true
+
+  # Resource tags for instances created by launch template through autoscaling group
+  tag_specifications {
+    resource_type = "instance"
+
+    # roboshop-dev-catalogue
+    tags = merge(
+        {
+            Name = "${var.project}-${var.environment}-catalogue"
+        },
+        local.common_tags
+    )
+  }
+
+  # Resource tags for volumes created by instances
+  tag_specifications {
+    resource_type = "volume"
+
+    tags = merge(
+        {
+            Name = "${var.project}-${var.environment}-catalogue"
+        },
+        local.common_tags
+    )
+  }
+
+  # Tags for launch template
+  tags = merge(
+        {
+            Name = "${var.project}-${var.environment}-catalogue"
+        },
+        local.common_tags
+    )
+}
+
+# For Creation of Autoscaling Group
+/* resource "aws_autoscaling_group" "catalogue" {
+  name                      = "${var.project}-${var.environment}-catalogue"
+  max_size                  = 10
+  min_size                  = 1
+  health_check_grace_period = 120
+  health_check_type         = "ELB"
+  desired_capacity          = 1
+  force_delete              = false # By default, it is true
+
+  launch_template {
+    id      = aws_launch_template.catalogue.id
+    version = "$Latest"
+  }
+
+  vpc_zone_identifier       = [local.private_subnet_id] # We launch in private subnet in 1a availability zone
+  target_group_arns         = [aws_lb_target_group.catalogue.arn]
+
+  tag {
+    key                 = "Name"
+    value               = "${var.project}-${var.environment}-catalogue"
+    propagate_at_launch = true
+  }
+
+  # Within 15min, Autoscaling should be successful
+  timeouts {
+    delete = "15m"
+  }
+} */
