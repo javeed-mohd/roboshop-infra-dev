@@ -21,7 +21,7 @@ resource "aws_lb" "backend_alb" {
 # Listener (HTTP/HTTPS)
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.backend_alb.arn
-  port              = "80" # Private Load Balancer
+  port              = "80"
   protocol          = "HTTP"
 
   default_action {
