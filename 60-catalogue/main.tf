@@ -55,7 +55,9 @@ resource "aws_ec2_instance_state" "catalogue" {
 
 # Creating the new EC2 Instance using AMI
 resource "aws_ami_from_instance" "catalogue" {
-  name               = "${var.project}-${var.environment}-catalogue"
+  # To make it unique we use instance id aslo..As AMI always creates roboshop-dev-catalogue
+  # roboshop-dev-catalogue-v3-i-06f5d173b7cffaed8 (Last)
+  name               = "${var.project}-${var.environment}-catalogue-${var.app_version}-${aws_instance.catalogue.id}"
   source_instance_id = aws_instance.catalogue.id
   depends_on         = [aws_ec2_instance_state.catalogue]
   tags  = merge(
