@@ -134,8 +134,8 @@ resource "aws_launch_template" "catalogue" {
     )
 }
 
-# For Creation of Autoscaling Group
-/* resource "aws_autoscaling_group" "catalogue" {
+# For Creation of AutoScaling Group
+resource "aws_autoscaling_group" "catalogue" {
   name                      = "${var.project}-${var.environment}-catalogue"
   max_size                  = 10
   min_size                  = 1
@@ -144,22 +144,73 @@ resource "aws_launch_template" "catalogue" {
   desired_capacity          = 1
   force_delete              = false # By default, it is true
 
+  # New launch template launch means new application version
   launch_template {
     id      = aws_launch_template.catalogue.id
     version = "$Latest"
   }
 
-  vpc_zone_identifier       = [local.private_subnet_id] # We launch in private subnet in 1a availability zone
+  vpc_zone_identifier       = [local.private_subnet_id] # Launch in private subnet in 1a availability zone
   target_group_arns         = [aws_lb_target_group.catalogue.arn]
 
-  tag {
-    key                 = "Name"
-    value               = "${var.project}-${var.environment}-catalogue"
-    propagate_at_launch = true
+  # Used when updation to new version, which means old instances will be deleted and new instance will be created
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = ["launch_template"]
+  }
+
+  dynamic "tag" {
+    for_each  = merge(
+      {
+        Name  = "${var.project}-${var.environment}-catalogue"
+      },
+      local.common_tags
+    )
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
   }
 
   # Within 15min, Autoscaling should be successful
   timeouts {
     delete = "15m"
   }
-} */
+}
+
+# For Creation of AutoScaling Policy
+resource "aws_autoscaling_policy" "catalogue" {
+  autoscaling_group_name      = aws_autoscaling_group.catalogue.name
+  name                        = "${var.project}-${var.environment}-catalogue"
+  policy_type                 = "TargetTrackingScaling"
+  estimated_instance_warmup   = 120
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 70.0
+  }
+}
+
+# For Creation of Listener Rule, which depends on Target Group
+resource "aws_lb_listener_rule" "catalogue" {
+  listener_arn = 
+  priority     = 99
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.static.arn
+  }
+
+  condition {
+    host_header {
+      values = ["my-service.*.terraform.io"]
+    }
+  }
+}

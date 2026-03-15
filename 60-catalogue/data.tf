@@ -20,17 +20,22 @@ data "aws_ami" "joindevops" {
   }
 }
 
-# For Catalogue sg id ssm parameter store
+# For Catalogue SG Id data source
 data "aws_ssm_parameter" "catalogue_sg_id" {
     name = "/${var.project}/${var.environment}/catalogue_sg_id"     # /roboshop/dev/catalogue_sg_id
 }
 
-# For VPC id ssm parameter store
+# For VPC Id data source
 data "aws_ssm_parameter" "vpc_id" {
     name = "/${var.project}/${var.environment}/vpc_id"     # /roboshop/dev/vpc_id
 }
 
-# For Private Subnet Id ssm parameter store
+# For Private Subnet Id data source
 data "aws_ssm_parameter" "private_subnet_ids" {
     name = "/${var.project}/${var.environment}/private_subnet_ids"     # /roboshop/dev/private_subnet_ids
+}
+
+# For Backend ALB Listener Arn (80[HTTP]/443[HTTPS]) data source
+data "aws_ssm_parameter" "backend_alb_listener_arn" {
+    name = "/${var.project}/${var.environment}/backend_alb_listener_arn"     # /roboshop/dev/backend_alb_listener_arn
 }
