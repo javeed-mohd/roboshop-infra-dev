@@ -15,3 +15,8 @@ variable "zone_id" {
 variable "domain_name" {
   default   = "devopsdaws.online"
 }
+
+# For overriding the app version updates we use this
+variable "app_version" {
+  default   = "v3"
+}
