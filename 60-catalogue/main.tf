@@ -217,7 +217,7 @@ resource "aws_lb_listener_rule" "catalogue" {
 }
 
 # For Destroying the Instance through terrraform data(null resource) and local-exec provisioner
-resource "terraform_data" "catalogue" {
+resource "terraform_data" "catalogue_delete" {
   triggers_replace = [
     aws_instance.catalogue.id
   ]
