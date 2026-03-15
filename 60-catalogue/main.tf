@@ -200,17 +200,32 @@ resource "aws_autoscaling_policy" "catalogue" {
 
 # For Creation of Listener Rule, which depends on Target Group
 resource "aws_lb_listener_rule" "catalogue" {
-  listener_arn = 
-  priority     = 99
+  listener_arn = local.backend_alb_listener_arn
+  priority     = 10
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.static.arn
+    target_group_arn = aws_lb_target_group.catalogue.arn
   }
 
+  # catalogue.backend-alb-dev.devopsdaws.online
   condition {
     host_header {
-      values = ["my-service.*.terraform.io"]
+      values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
     }
+  }
+}
+
+# For Destroying the Instance through terrraform data(null resource) and local-exec provisioner
+resource "terraform_data" "catalogue" {
+  triggers_replace = [
+    aws_instance.catalogue.id
+  ]
+  depends_on  = [aws_autoscaling_policy.catalogue]
+
+  # It executes in bastion(Which acts as a secure gateway to access resources inside a private network (like private VMs or instances).)
+  # LOCAL EXECUTION  ==> local-exec -> where terraform executes
+  provisioner "local-exec" {
+    command   = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
   }
 }
