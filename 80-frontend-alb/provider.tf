@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket  = "remote-state-aws-devops-dev" # Replace with your unique bucket name
-    key     = "roboshop-dev-backend-alb" # .tfstate is optional (This key should be different for each file)
+    key     = "roboshop-dev-frontend-alb" # .tfstate is optional (This key should be different for each file)
     region  = "us-east-1"
     encrypt = true
     use_lockfile   = true

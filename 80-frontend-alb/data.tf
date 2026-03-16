@@ -8,3 +8,8 @@ data "aws_ssm_parameter" "frontend_alb_sg_id" {
 data "aws_ssm_parameter" "public_subnet_ids" {
     name = "/${var.project}/${var.environment}/public_subnet_ids"     # /roboshop/dev/public_subnet_ids
 }
+
+# For Fronted ALB Certificate Arn data source
+data "aws_ssm_parameter" "frontend_alb_certificate_arn" {
+    name = "/${var.project}/${var.environment}/frontend_alb_certificate_arn"    # /roboshop/dev/frontend_alb_certificate_arn
+}
