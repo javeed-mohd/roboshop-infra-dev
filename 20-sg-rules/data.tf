@@ -45,3 +45,8 @@ data "aws_ssm_parameter" "backend_alb_sg_id" {
 data "aws_ssm_parameter" "catalogue_sg_id" {
     name = "/${var.project}/${var.environment}/catalogue_sg_id" # /roboshop/dev/catalogue_sg_id
 }
+
+# For Frontend ALB SG Id data source
+data "aws_ssm_parameter" "frontend_alb_sg_id" {
+    name = "/${var.project}/${var.environment}/frontend_alb_sg_id" # /roboshop/dev/frontend_alb_sg_id
+}

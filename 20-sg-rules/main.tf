@@ -76,7 +76,7 @@ resource "aws_security_group_rule" "rabbitmq_bastion" {
 # For Backend ALB(Application LoadBalancer) Security Group Rule creation in 50-backend-alb folder
 resource "aws_security_group_rule" "backend_alb_bastion" {
   type                     = "ingress"
-  from_port                = 80 # HTTP (Private LoadBalancer), Because AWS won't give access to SSH 22
+  from_port                = 80 # HTTP (LoadBalancer), Because AWS won't give access to SSH 22
   to_port                  = 80
   protocol                 = "tcp"
 #   Where traffic is coming from?
@@ -104,4 +104,15 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
 #   Where traffic is coming from?
   source_security_group_id = local.backend_alb_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.catalogue_sg_id 
+}
+
+# For Frontend ALB(Application LoadBalancer) Security Group Rule creation in 80-frontend-alb folder
+resource "aws_security_group_rule" "frontend_alb_public" {
+  type              = "ingress"
+  from_port         = 443 # HTTPS (LoadBalancer), Because AWS won't give access to SSH 22
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.frontend_alb_sg_id
 }
