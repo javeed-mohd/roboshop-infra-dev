@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "mongodb_bastion" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.mongodb_sg_id 
 }
@@ -27,7 +27,7 @@ resource "aws_security_group_rule" "mongodb_catalogue" {
   from_port                = 27017
   to_port                  = 27017
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.catalogue_sg_id
   security_group_id        = local.mongodb_sg_id 
 }
@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "mongodb_user" {
   from_port                = 27017
   to_port                  = 27017
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.user_sg_id
   security_group_id        = local.mongodb_sg_id
 }
@@ -49,7 +49,7 @@ resource "aws_security_group_rule" "redis_bastion" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.redis_sg_id 
 }
@@ -60,7 +60,7 @@ resource "aws_security_group_rule" "redis_user" {
   from_port                = 6379
   to_port                  = 6379
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.user_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.redis_sg_id 
 }
@@ -71,7 +71,7 @@ resource "aws_security_group_rule" "redis_cart" {
   from_port                = 6379
   to_port                  = 6379
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.cart_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.redis_sg_id 
 }
@@ -82,7 +82,7 @@ resource "aws_security_group_rule" "mysql_bastion" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.mysql_sg_id 
 }
@@ -93,7 +93,7 @@ resource "aws_security_group_rule" "mysql_shipping" {
   from_port                = 3306
   to_port                  = 3306
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.shipping_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.mysql_sg_id 
 }
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "rabbitmq_bastion" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.rabbitmq_sg_id 
 }
@@ -115,7 +115,7 @@ resource "aws_security_group_rule" "rabbitmq_payment" {
   from_port                = 5672
   to_port                  = 5672
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.payment_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.rabbitmq_sg_id 
 }
@@ -126,7 +126,7 @@ resource "aws_security_group_rule" "backend_alb_bastion" {
   from_port                = 80 # HTTP (LoadBalancer), Because AWS won't give access to SSH 22
   to_port                  = 80
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.backend_alb_sg_id
 }
@@ -137,7 +137,7 @@ resource "aws_security_group_rule" "catalogue_bastion" {
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.bastion_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.catalogue_sg_id 
 }
@@ -148,7 +148,7 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
   from_port                = 8080 # catalogue port number
   to_port                  = 8080
   protocol                 = "tcp"
-#   Where traffic is coming from?
+  # Where traffic is coming from?
   source_security_group_id = local.backend_alb_sg_id # Either cidr block or security group should be used...
   security_group_id        = local.catalogue_sg_id 
 }
