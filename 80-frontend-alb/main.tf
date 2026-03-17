@@ -1,4 +1,4 @@
-# Creaton of Load Balancer (Frontend ALB)
+# Creation of Load Balancer (Frontend ALB)
 resource "aws_lb" "frontend_alb" {
   name               = "${var.project}-${var.environment}-frontend" # roboshop-dev-frontend
   internal           = false # Because it is public
@@ -18,7 +18,7 @@ resource "aws_lb" "frontend_alb" {
   )
 }
 
-# Listener (HTTP/HTTPS) & SSL ploicy is required, if HTTPS used.
+# Listener (HTTP/HTTPS) & SSL(Secure Sockets Layer) policy is required for using HTTPS protocol
 resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.frontend_alb.arn
   port              = "443"
@@ -31,7 +31,7 @@ resource "aws_lb_listener" "https" {
 
     fixed_response {
       content_type = "text/html"
-      message_body = "<h1>Hi, I am from HTTP Frontend ALB</h1>"
+      message_body = "<h1>Hi, I am from HTTPS Frontend ALB</h1>"
       status_code  = "200"
     }
   }
