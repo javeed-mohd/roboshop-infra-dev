@@ -1,4 +1,4 @@
-# Load Balancer(Frontend ALB) will be created
+# Creaton of Load Balancer (Frontend ALB)
 resource "aws_lb" "frontend_alb" {
   name               = "${var.project}-${var.environment}-frontend" # roboshop-dev-frontend
   internal           = false # Because it is public
@@ -45,7 +45,7 @@ resource "aws_route53_record" "www" {
 
   # Load Balancer details
   alias {
-    name                   = aws_lb.frontend_alb.dns_name # dualstack.frontend-alb-dev.us-east-1.elb.amazonaws.com
+    name                   = aws_lb.frontend_alb.dns_name   # dualstack.frontend-alb-dev.us-east-1.elb.amazonaws.com
     zone_id                = aws_lb.frontend_alb.zone_id
     evaluate_target_health = true
   }

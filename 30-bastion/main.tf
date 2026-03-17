@@ -1,3 +1,4 @@
+# Creation of Bastion EC2 Instance
 resource "aws_instance" "bastion" {
   ami                       = local.ami_id
   instance_type             = "t3.micro"
@@ -10,7 +11,7 @@ resource "aws_instance" "bastion" {
   root_block_device {
     volume_size = 50
     volume_type = "gp3"
-    # Elastic Block Store(EBS) volume tags
+    # Elastic Block Store (EBS) volume tags
     tags = merge(
       {
           Name = "${var.project}-${var.environment}-bastion"
@@ -28,6 +29,7 @@ resource "aws_instance" "bastion" {
   )
 }
 
+# Creation of RoboshopDevBastion IAM Role
 resource "aws_iam_role" "bastion" {
   name = "RoboshopDevBastion"
 

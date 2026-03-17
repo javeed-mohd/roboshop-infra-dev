@@ -1,4 +1,4 @@
-# Load Balancer(Backend ALB) will be created
+# Creation of Load Balancer (Backend ALB)
 resource "aws_lb" "backend_alb" {
   name               = "${var.project}-${var.environment}" # roboshop-dev
   internal           = true # Because it is private

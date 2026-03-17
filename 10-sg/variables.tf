@@ -15,11 +15,11 @@ variable "sg_names" {
     "mongodb", "redis", "mysql", "rabbitmq",
     # Backend
     "catalogue", "user", "cart", "shipping", "payment",
-    # Backend Application Load Balancer(ALB)
+    # Backend Application Load Balancer (ALB)
     "backend_alb",
     # Frontend
     "frontend",
-    # Frontend Application Load Balancer(ALB)
+    # Frontend Application Load Balancer (ALB)
     "frontend_alb",
     # Bastion --> A bastion host is a special server that acts as a secure gateway to access resources inside a private network (like private VMs or instances).
     "bastion" 

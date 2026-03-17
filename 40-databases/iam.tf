@@ -1,4 +1,4 @@
-# For Mysql, We create a IAM Role
+# Creating an IAM Role for MySQL
 resource "aws_iam_role" "mysql" {
   name = local.mysql_role_name # Roboshop-Dev-Mysql
 

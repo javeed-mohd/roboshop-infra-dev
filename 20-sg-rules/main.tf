@@ -73,7 +73,7 @@ resource "aws_security_group_rule" "rabbitmq_bastion" {
   security_group_id        = local.rabbitmq_sg_id 
 }
 
-# For Backend ALB(Application LoadBalancer) Security Group Rule creation in 50-backend-alb folder
+# For Backend ALB (Application LoadBalancer) Security Group Rule creation in 50-backend-alb folder
 resource "aws_security_group_rule" "backend_alb_bastion" {
   type                     = "ingress"
   from_port                = 80 # HTTP (LoadBalancer), Because AWS won't give access to SSH 22
@@ -106,7 +106,7 @@ resource "aws_security_group_rule" "catalogue_backend_alb" {
   security_group_id        = local.catalogue_sg_id 
 }
 
-# For Frontend ALB(Application LoadBalancer) Security Group Rule creation in 80-frontend-alb folder
+# For Frontend ALB (Application LoadBalancer) Security Group Rule creation in 80-frontend-alb folder
 resource "aws_security_group_rule" "frontend_alb_public" {
   type              = "ingress"
   from_port         = 443 # HTTPS (LoadBalancer), Because AWS won't give access to SSH 22
