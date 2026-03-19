@@ -1,11 +1,3 @@
-variable "project" {
-    default = "roboshop"
-}
-
-variable "environment" {
-    default = "dev"
-}
-
 variable "components" {
     default = {
         # Backend components (Catalogue, User, Cart, Shippping & Payment) are attaching to Backend ALB
