@@ -1,9 +1,10 @@
 # Data sources are used to query and fetch existing information from your provider like AWS, so you can use that data in your Terraform configuration.
-# Cloudfront_cache_policy data source(caching_disabled and caching_optimized)
+# Cloudfront_cache_policy caching_disabled data source
 data "aws_cloudfront_cache_policy" "caching_disabled" {
   name = "Managed-CachingDisabled"
 }
 
+# Cloudfront_cache_policy caching_optimized data source 
 data "aws_cloudfront_cache_policy" "caching_optimized" {
   name = "Managed-CachingOptimized"
 }

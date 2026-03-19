@@ -16,9 +16,9 @@ resource "aws_cloudfront_distribution" "roboshop" {
   }
 
     enabled             = true
-  is_ipv6_enabled     = false
+    is_ipv6_enabled     = false
   
-  # CDN URL https://roboshop-dev.devopsdaws.online (Public or )
+  # CDN URL https://roboshop-dev.devopsdaws.online (Public or Prod)
   aliases = ["${var.project}-${var.environment}.${var.domain_name}"]
 
   default_cache_behavior {
@@ -79,7 +79,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 # Creation of Route53 records 
 resource "aws_route53_record" "cdn" {
   zone_id = var.zone_id
-  name    = "${var.project}-${var.environment}.${var.domain_name}"
+  name    = "${var.project}-${var.environment}.${var.domain_name}"      # roboshop-dev.devopsdaws.online
   type    = "A"
   
   # CDN details (Content delivery network)
