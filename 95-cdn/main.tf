@@ -1,3 +1,4 @@
+# A CDN (Content Delivery Network) in AWS is mainly provided through Amazon CloudFront. It’s a service that helps deliver your website or application content to users faster and more securely by using a global network of servers.
 # Creation of AWS CloudFRont Distribution
 resource "aws_cloudfront_distribution" "roboshop" {
   origin {
@@ -5,8 +6,9 @@ resource "aws_cloudfront_distribution" "roboshop" {
     domain_name              = "frontend-${var.environment}.${var.domain_name}"
     origin_id                = "frontend-${var.environment}.${var.domain_name}"
 
+    # CloudFront custom origin
     custom_origin_config  {
-        http_port              = 80 // Required to be set but not used
+        http_port              = 80         # Required to be set but not used
         https_port             = 443
         origin_protocol_policy = "https-only"
         origin_ssl_protocols   = ["TLSv1.2", "TLSv1.1"]
@@ -16,7 +18,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     enabled             = true
   is_ipv6_enabled     = false
   
-  # CDN URL https://roboshop-dev.devopsdaws.online
+  # CDN URL https://roboshop-dev.devopsdaws.online (Public or )
   aliases = ["${var.project}-${var.environment}.${var.domain_name}"]
 
   default_cache_behavior {
@@ -25,7 +27,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id = local.cachingDisabled
+    cache_policy_id = local.caching_disabled
   }
 
   # Cache behavior with precedence 0
@@ -36,7 +38,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id = local.cachingOptimized
+    cache_policy_id = local.caching_optimized
   }
 
   # Cache behavior with precedence 1
@@ -47,7 +49,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     target_origin_id = "frontend-${var.environment}.${var.domain_name}"
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id = local.cachingOptimized
+    cache_policy_id = local.caching_optimized
   }
 
   price_class = "PriceClass_All"
