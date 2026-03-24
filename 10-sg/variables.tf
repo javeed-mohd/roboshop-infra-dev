@@ -22,6 +22,8 @@ variable "sg_names" {
     # Frontend Application Load Balancer (ALB)
     "frontend_alb",
     # Bastion --> A bastion host is a special server that acts as a secure gateway to access resources inside a private network (like private VMs or instances).
-    "bastion" 
+    "bastion",
+    # Openvpn --> OpenVPN is an open-source software application used to create a secure connection over the internet, commonly known as a Virtual Private Network (VPN).
+    "openvpn"
   ]
 }
