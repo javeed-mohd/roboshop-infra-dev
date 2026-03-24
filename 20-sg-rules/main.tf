@@ -339,3 +339,40 @@ resource "aws_security_group_rule" "frontend_alb_public" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = local.frontend_alb_sg_id
 }
+
+# Creation of Openvpn Security Group Rule, it should accept connection from public 443(outside) for 98-openvpn folder
+# OpenVPN is an open-source software application used to create a secure connection over the internet, commonly known as a Virtual Private Network (VPN).
+resource "aws_security_group_rule" "openvpn_public_443" {
+  type              = "ingress"
+  from_port         = 443 # HTTPS (LoadBalancer), Because AWS won't give access to SSH 22
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.openvpn_sg_id
+}
+
+# Creation of Openvpn Security Group Rule, it should accept connection from public 943 for 98-openvpn folder
+# OpenVPN is an open-source software application used to create a secure connection over the internet, commonly known as a Virtual Private Network (VPN).
+# Admin UI (https://public_ip of openvpn instance/admin)
+resource "aws_security_group_rule" "openvpn_public_943" {
+  type              = "ingress"
+  from_port         = 943 # HTTPS (LoadBalancer), Because AWS won't give access to SSH 22
+  to_port           = 943
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = local.openvpn_sg_id
+}
+
+# Creation of Backend ALB (Application Load Balancer) Security Group Rule, it should accept connection from openvpn for 98-openvpn folder
+# If required, we can provide catalogue_openvpn(8080), user_openvpn(8080), ....
+resource "aws_security_group_rule" "backend_alb_openvpn" {
+  type                      = "ingress"
+  from_port                 = 80 # HTTP (LoadBalancer), Because AWS won't give access to SSH 22
+  to_port                   = 80
+  protocol                  = "tcp"
+  # Where traffic is coming from
+  source.security_group_id  = local.openvpn_sg_id # Either cidr block or security group should be used...
+  security_group_id         = local.backend_alb_sg_id
+}
