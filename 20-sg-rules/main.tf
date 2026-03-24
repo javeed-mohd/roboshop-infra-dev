@@ -373,6 +373,6 @@ resource "aws_security_group_rule" "backend_alb_openvpn" {
   to_port                   = 80
   protocol                  = "tcp"
   # Where traffic is coming from
-  source.security_group_id  = local.openvpn_sg_id     # Either cidr block or security group should be used...
+  source_security_group_id  = local.openvpn_sg_id     # Either cidr block or security group should be used...
   security_group_id         = local.backend_alb_sg_id
 } 
